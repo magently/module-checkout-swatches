@@ -1,0 +1,37 @@
+<!-- ko foreach: getRegion('before_details') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <strong class="product-item-name" data-bind="html: $parent.name"></strong>
+            <div class="details-qty">
+                <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
+                <span class="value" data-bind="text: $parent.qty"></span>
+            </div>
+        </div>
+        <!-- ko foreach: getRegion('after_details') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+
+    <!-- ko if: (JSON.parse($parent.options).length > 0)-->
+        <div class="product options" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+            <span data-role="title" class="toggle"><!-- ko i18n: 'View Details' --><!-- /ko --></span>
+            <div data-role="content" class="content">
+                <strong class="subtitle"><!-- ko i18n: 'Options Details' --><!-- /ko --></strong>
+                <!-- ko if: (getSwatchesJsLayoutByItemId($parent.item_id))-->
+                    <div data-bind='mageInit: {
+                            "Magento_Swatches/js/swatch-renderer": {
+                                "jsonConfig": JSON.parse(getSwatchesJsLayoutByItemId($parent.item_id).jsonConfig),
+                                "jsonSwatchConfig": JSON.parse(getSwatchesJsLayoutByItemId($parent.item_id).jsonSwatchConfig)
+                            }
+                        }'></div>
+                <!-- /ko -->
+            </div>
+        </div>
+    <!-- /ko -->
+</div>
+<!-- ko foreach: getRegion('item_message') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="magently_checkout_swatches_layout_processor_plugin"
+                type="Magently\CheckoutSwatches\Plugin\Checkout\Block\Checkout\LayoutProcessor"
+                sortOrder="10"/>
+    </type>
+    <type name="Magently\CheckoutSwatches\Model\Swatches\LayoutProcessor">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="magently_add_new_product_attributes_to_minicart"
+                type="Magently\CheckoutSwatches\Plugin\Checkout\CustomerData\DefaultItem"
+                sortOrder="10"/>
+    </type>
+</config>

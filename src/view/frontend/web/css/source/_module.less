@@ -1,0 +1,32 @@
+& when (@media-common = true) {
+    .checkout-index-index,
+    .block-minicart {
+        .swatch {
+            &-opt {
+                margin: 0;
+            }
+
+            &-option {
+                margin: 0;
+                pointer-events: none;
+
+                &.text {
+                    margin: 0;
+                    min-width: 18px;
+                    padding: 1px 8px;
+                }
+            }
+
+            &-attribute {
+                line-height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                &-options.clearfix {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}
