@@ -2,7 +2,7 @@
 
 ## Overview
 
-This package changes default product text details (size, color) to swatches in minicart and on checkout.
+This package changes default product text details (size, color) to swatches in the minicart and on the checkout.
 
 ![Checkout Swatches](assets/demo-checkout-swatches.png)
 
@@ -16,4 +16,4 @@ php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy
 php bin/magento cache:flush
 ```
-3. Check with ```cat app/etc/config.php | grep Magently_CheckoutSwatches``` whether module is installed and enabled.
+3. Check with ```cat app/etc/config.php | grep Magently_CheckoutSwatches``` whether the module is installed and enabled.
