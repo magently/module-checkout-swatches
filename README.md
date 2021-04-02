@@ -4,7 +4,7 @@
 
 This package changes default product text details (size, color) to swatches in the minicart and on the checkout.
 
-![Checkout Swatches](assets/demo-checkout-swatches.png)
+![Checkout Swatches](assets/checkout-swatches-preview.png)
 
 ## Installation
 
