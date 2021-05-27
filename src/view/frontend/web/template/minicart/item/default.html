@@ -32,13 +32,31 @@
                     <span data-role="title" class="toggle"><!-- ko i18n: 'See Details' --><!-- /ko --></span>
                     <div data-role="content" class="content">
                         <strong class="subtitle"><!-- ko i18n: 'Options Details' --><!-- /ko --></strong>
-                        <!-- ko if: (json_config && json_swatch_config)-->
+                        <!-- ko if: (json_config && json_swatch_config) -->
                             <div data-bind='mageInit: {
                                     "Magento_Swatches/js/swatch-renderer": {
                                         "jsonConfig": JSON.parse(json_config),
                                         "jsonSwatchConfig": JSON.parse(json_swatch_config)
                                     }
                                 }'></div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: (json_config && json_swatch_config) -->
+                            <dl class="product options list">
+                                <!-- ko foreach: { data: options, as: 'option' } -->
+                                <dt class="label"><!-- ko text: option.label --><!-- /ko --></dt>
+                                <dd class="values">
+                                    <!-- ko if: Array.isArray(option.value) -->
+                                        <span data-bind="html: option.value.join('<br>')"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: (!Array.isArray(option.value) && option.option_type == 'file') -->
+                                        <span data-bind="html: option.value"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: (!Array.isArray(option.value) && option.option_type != 'file') -->
+                                        <span data-bind="text: option.value"></span>
+                                    <!-- /ko -->
+                                </dd>
+                                <!-- /ko -->
+                            </dl>
                         <!-- /ko -->
                     </div>
                 </div>

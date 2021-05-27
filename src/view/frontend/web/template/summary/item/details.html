@@ -28,6 +28,19 @@
                             }
                         }'></div>
                 <!-- /ko -->
+                <!-- ko ifnot: (getSwatchesJsLayoutByItemId($parent.item_id))-->
+                    <dl class="item-options">
+                        <!--ko foreach: JSON.parse($parent.options)-->
+                        <dt class="label" data-bind="text: label"></dt>
+                            <!-- ko if: ($data.full_view)-->
+                            <dd class="values" data-bind="html: full_view"></dd>
+                            <!-- /ko -->
+                            <!-- ko ifnot: ($data.full_view)-->
+                            <dd class="values" data-bind="html: value"></dd>
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </dl>
+                <!-- /ko -->
             </div>
         </div>
     <!-- /ko -->

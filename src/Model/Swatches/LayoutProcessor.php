@@ -60,10 +60,10 @@ class LayoutProcessor
 
         foreach ($this->session->getQuote()->getItems() as $item) {
             $isConfigurable = $item->getProductType() == Configurable::TYPE_CODE;
-            $jsLayout[$item->getItemId()] = [
-                'jsonConfig' => $isConfigurable ? $this->getJsonConfig($item) : null,
-                'jsonSwatchConfig' => $isConfigurable ? $this->getJsonSwatchConfig($item) : null
-            ];
+            $jsLayout[$item->getItemId()] = $isConfigurable ? [
+                'jsonConfig' => $this->getJsonConfig($item),
+                'jsonSwatchConfig' => $this->getJsonSwatchConfig($item)
+            ] : null;
         }
 
         return $jsLayout;
@@ -71,26 +71,46 @@ class LayoutProcessor
 
     /**
      * @param CartItemInterface $item
-     * @return string
+     * @return string|null
      */
     public function getJsonConfig(CartItemInterface $item)
     {
-        $configurable = $this->configurableFactory->create()
-            ->setProduct($item->getProduct());
+        $configurable = $this->getSwatchesConfigurableRenderer($item);
+        if ($configurable) {
+            return $configurable->getJsonConfig();
+        }
 
-        return $configurable->getJsonConfig();
+        return null;
     }
 
     /**
      * @param CartItemInterface $item
-     * @return string
+     * @return string|null
      */
     public function getJsonSwatchConfig(CartItemInterface $item)
     {
-        $configurable = $this->configurableFactory->create()
-            ->setProduct($item->getProduct());
+        $configurable = $this->getSwatchesConfigurableRenderer($item);
+        if ($configurable) {
+            return $this->filterJsonSwatchConfig($configurable->getJsonSwatchConfig(), $item);
+        }
 
-        return $this->filterJsonSwatchConfig($configurable->getJsonSwatchConfig(), $item);
+        return null;
+    }
+
+    /**
+     * Get Swatches Configurable Renderer for configurable product,
+     * or return NULL for other product types.
+     *
+     * @param CartItemInterface $item
+     * @return \Magento\Swatches\Block\Product\Renderer\Configurable|null
+     */
+    private function getSwatchesConfigurableRenderer(CartItemInterface $item)
+    {
+        if ($item->getProductType() == Configurable::TYPE_CODE) {
+            return $this->configurableFactory->create()->setProduct($item->getProduct());
+        }
+
+        return null;
     }
 
     /**
